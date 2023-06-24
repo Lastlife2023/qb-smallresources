@@ -66,16 +66,42 @@ CreateThread(function()
 end)
 
 if Config.IdleCamera then --Disable Idle Cinamatic Cam
-    CreateThread(function()
+    CreateThread( function ()
         while true do
             InvalidateIdleCam()
             InvalidateVehicleIdleCam()
-            Wait(1000) --The idle camera activates after 30 second so we don't need to call this per frame
         end
     end)
+    --DisableIdleCamera(true)
 end
 
 RegisterNetEvent('QBCore:Client:DrawWeapon', function()
+    local sleep
+    while true do
+        sleep = 500
+        local ped = PlayerPedId()
+        local weapon = GetSelectedPedWeapon(ped)
+        if weapon ~= `WEAPON_UNARMED` then
+            if IsPedArmed(ped, 6) then
+                sleep = 0
+                DisableControlAction(1, 140, true)
+                DisableControlAction(1, 141, true)
+                DisableControlAction(1, 142, true)
+            end
+
+            if weapon == `WEAPON_FIREEXTINGUISHER` then
+                if IsPedShooting(ped) then
+                    SetPedInfiniteAmmo(ped, true, weapon)
+                end
+            end
+        else
+            break
+        end
+        Wait(sleep)
+    end
+end)
+
+--[[RegisterNetEvent('QBCore:Client:DrawWeapon', function()
     local sleep
     while true do
         sleep = 500
@@ -99,7 +125,7 @@ RegisterNetEvent('QBCore:Client:DrawWeapon', function()
         end
         Wait(sleep)
     end
-end)
+end)]]
 
 CreateThread(function()
     local pedPool = GetGamePool('CPed')
@@ -108,24 +134,77 @@ CreateThread(function()
     end
 end)
 
+maxTaserCarts = 2 -- The amount of taser cartridges a person can have.
+
+local taserCartsLeft = maxTaserCarts
+
+RegisterNetEvent("FillTaser")
+AddEventHandler("FillTaser",function(source, args, rawCommand)
+    
+    QBCore.Functions.Progressbar("load_tazer", "Reloading Tazer..", 2000, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+        disableMouse = false,
+        disableCombat = true,
+    }, {
+        animDict = "anim@weapons@pistol@singleshot_str",
+        anim = "reload_aim",
+        flags = 48,
+    }, {}, {}, function() -- Done
+    
+        
+        taserCartsLeft = maxTaserCarts
+        TriggerServerEvent("QBCore:Server:RemoveItem", "taserammo", 1)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["taserammo"], "remove")
+        
+    end)
+end)
+
+local taserModel = GetHashKey("WEAPON_STUNGUN")
+
 CreateThread(function()
     while true do
         Wait(2500)
         local ped = PlayerPedId()
         local weapon = GetSelectedPedWeapon(ped)
         if Config.BlacklistedWeapons[weapon] then
-            RemoveWeaponFromPed(ped, weapon)
+            RemoveWEaponFromPed(ped, weapon)
         end
+
+        if GetSelectedPedWeapon(ped) == taserModel then
+            if IsPedShooting(ped) then
+                DisplayAmmoThisFrame(true)
+                taserCartsLeft = taserCartsLeft - 1
+            end
+        end
+
+        if taserCartsLeft <= 0 then
+            if GetSelectedPedWeapon(ped) == taserModel then
+                SetPlayerCanDoDriveBy(ped, false)
+                DisablePlayerFiring(ped, true)
+                if IsControlJustReleased(0, 106) then
+                    QBCore.Functions.Notify("You need to reload your taser!", "error")
+                end
+            end
+        end
+
+        --[[if longerTazeTime then
+            SetPedMinGroundTimeForStungun(ped, longerTazeSecTime * 1000)
+        end]]
     end
 end)
 
-CreateThread(function()
+CreateThread( function ()
     while Config.RemovePistolWhipping do
         if IsPedArmed(PlayerPedId(), 6) then
             DisableControlAction(1, 140, true)
             DisableControlAction(1, 141, true)
             DisableControlAction(1, 142, true)
         end
-        Wait(5)
     end
 end)
+
+RegisterCommand('test', function()
+    TriggerEvent("FillTaser")
+end)
+

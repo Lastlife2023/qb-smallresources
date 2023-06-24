@@ -62,11 +62,11 @@ Config.Discord = {
     ["MaxPlayers"] = 48, -- Maximum amount of players
     ["Buttons"] = {
         {
-            text = 'First Button!',
-            url = 'fivem://connect/localhost:30120'
+            text = 'Join Discord',
+            url = 'https://discord.gg/lastliferoleplay'
         },
         {
-            text = 'Second Button!',
+            text = 'Join City',
             url = 'fivem://connect/localhost:30120'
         }
     }
@@ -86,19 +86,18 @@ Config.Stun = {
     max = 7000
 }
 
-Config.RemovePistolWhipping = true  -- Removes Pistol Whipping
-
+Config.RemovePistolWhipping = false
 Config.Cruise = 'mp/h'
-Config.IdleCamera = true
+Config.IdleCamera = false
 Config.disableHandsupControls = {24, 25, 47, 58, 59, 63, 64, 71, 72, 75, 140, 141, 142, 143, 257, 263, 264}
 Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
 Config.HarnessUses = 20
 Config.DamageNeeded = 100.0 -- vehiclepush 0-1000
 Config.EnableProne = false -- prone isnt recomended at this time
-Config.MapText = "Server Name" -- This is the name / text shown above the map
+Config.MapText = "Lastlife Roleplay" -- This is the name / text shown above the map
 
 Config.Disable = {
-    disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
+    disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 19, 20, 21}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
     disableControls = {37}, -- Controls: https://docs.fivem.net/docs/game-references/controls/
     displayAmmo = true -- false disables ammo display
 }
@@ -145,7 +144,7 @@ Config.ConsumablesCustom = {
     --     },
     --     ['replenish'] = {
     --         type = 'Hunger', -- replenish type 'Hunger'/'Thirst' / false
-    --         replenish = math.random(20, 40),
+    --         replenish = math.random(20, 40), 
     --         isAlcohol = false, -- if you want it to add alcohol count
     --         event = false, -- 'eventname' if you want it to trigger an outside event on use useful for drugs
     --         server = false -- if the event above is a server event
@@ -191,14 +190,14 @@ Config.BlacklistedVehs = {
     [`SAVAGE`] = true,
     [`TITAN`] = true,
     [`RHINO`] = true,
-    [`FIRETRUK`] = true,
+    [`FIRETRUK`] = false,
     [`MULE`] = true,
     [`MAVERICK`] = true,
     [`BLIMP`] = true,
     [`AIRTUG`] = true,
     [`CAMPER`] = true,
     [`HYDRA`] = true,
-    [`OPPRESSOR`] = true,
+    [`OPPRESSOR`] = false,
     [`technical3`] = true,
     [`insurgent3`] = true,
     [`apc`] = true,
@@ -213,7 +212,7 @@ Config.BlacklistedVehs = {
     [`caracara`] = true,
     [`blimp3`] = true,
     [`menacer`] = true,
-    [`oppressor2`] = true,
+    [`oppressor2`] = false,
     [`scramjet`] = true,
     [`strikeforce`] = true,
     [`cerberus`] = true,
@@ -224,8 +223,8 @@ Config.BlacklistedVehs = {
     [`scarab3`] = true,
     [`rrocket`] = true,
     [`ruiner2`] = true,
-    [`deluxo`] = true,
-    [`cargoplane2`] = true,
+    [`deluxo`] = false,
+    [`cargoplane2`] = false,
     [`voltic2`] = true,
 }
 
@@ -265,7 +264,7 @@ Config.Objects = { -- for object removal
 -- You may add more than 2 selections and it will bring up a menu for the player to select which floor be sure to label each section though
 Config.Teleports = {
     --Elevator @ labs
-    [1] = {
+    --[[[1] = {
         [1] = { -- up label
             ['poly'] = {
                 coords = vector3(3540.74, 3675.59, 20.99),
@@ -287,7 +286,7 @@ Config.Teleports = {
             ["AllowVehicle"] = false,
             label = false
         },
-        -- [3] = {
+        -- [3] = { 
         --     ['poly'] = {
         --         coords = vector3(0.0, 0.0, 0.0),
         --         heading = 0.0,
@@ -299,7 +298,7 @@ Config.Teleports = {
         -- },
     },
     --Coke Processing Enter/Exit
-    [2] = {
+    --[[[2] = {
         [1] = {
             ['poly'] = {
                 coords = vector3(909.49, -1589.22, 30.51),
@@ -320,7 +319,7 @@ Config.Teleports = {
             ["AllowVehicle"] = false,
             label = '[E] Leave'
         }
-    }
+    }]]
 }
 
 Config.DefaultPrice = 20 -- Default price for the carwash

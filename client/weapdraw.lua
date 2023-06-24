@@ -70,6 +70,7 @@ local weapons = {
     'WEAPON_COMPACTLAUNCHER',
     'WEAPON_PIPEBOMB',
     'WEAPON_DOUBLEACTION',
+    'WEAPON_HUNTINGRIFLE'
 }
 
 local holstered = true
@@ -115,7 +116,7 @@ RegisterNetEvent('weapons:ResetHolster', function()
 end)
 
 RegisterNetEvent('weapons:client:DrawWeapon', function()
-    if GetResourceState('qb-inventory') == 'missing' then return end -- This part is only made to work with qb-inventory, other inventories might conflict
+    if GetResourceState('lj-inventory') == 'missing' then return end -- This part is only made to work with lj-inventory, other inventories might conflict
     local sleep
     local weaponcheck = 0
     while true do
@@ -298,7 +299,7 @@ end)
 
 function CeaseFire()
     CreateThread(function()
-        if GetResourceState('qb-inventory') == 'missing' then return end -- This part is only made to work with qb-inventory, other inventories might conflict
+        if GetResourceState('lj-inventory') == 'missing' then return end -- This part is only made to work with lj-inventory, other inventories might conflict
         while not canFire do
             DisableControlAction(0, 25, true)
             DisablePlayerFiring(PlayerId(), true)

@@ -462,7 +462,7 @@ RegisterNetEvent('consumables:client:UseHeavyArmor', function()
                 currentVest = GetPedDrawableVariation(ped, 30)
                 currentVestTexture = GetPedTextureVariation(ped, 30)
                 SetPedComponentVariation(ped, 9, 30, 0, 2)
-            end
+            end 
         end
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["heavyarmor"], "remove")
         TriggerServerEvent("consumables:server:useHeavyArmor")

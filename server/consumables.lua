@@ -42,6 +42,16 @@ local function CreateItem(name,type)
         TriggerClientEvent("consumables:client:"..type, source, item.name)
     end)
 end
+
+----------- / Taser Ammo
+QBCore.Functions.CreateUseableItem("taserammo", function(source, item)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(source)
+    if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+        TriggerClientEvent("FillTaser", source)
+    end
+end)
+
 ----------- / Drug
 
 QBCore.Functions.CreateUseableItem("joint", function(source, item)

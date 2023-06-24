@@ -1,4 +1,8 @@
 local recoils = {
+    -- ADDON WEAPONS
+    -- Hunting
+    [-1327835241] = 1.0, -- ['weapon_huntingrifle']
+
     -- Melee
     -- [-1834847097] = 0.3,        --['weapon_dagger']
     -- [-1786099057] = 0.3,        --['weapon_bat']
